@@ -8,7 +8,11 @@ const static = require('koa-static')
 const fs = require('fs')
 const path = require('path')
 
-const { DB, CONF, PORT } = require('./src/db/db')
+const {
+    DB,
+    CONF,
+    PORT
+} = require('./src/db/db')
 const user = require('./src/router/api/user')
 const list = require('./src/router/api/list')
 
@@ -35,13 +39,13 @@ app.use(cors({
 // 使用session
 app.keys = ['secret']
 const CONFIG = {
-    key: 'koa:sess',        // cookie key (默认koa：sess)
-    maxAge: 86400000,       // cookie的过期时间,毫秒，默认为1天
-    overwrite: true,        // 是否覆盖    (默认default true)
-    httpOnly: false,        // cookie是否只有服务器端可以访问,默认为true
-    signed: true,           // 签名默认true
-    rolling: false,         // 在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
-    renew: false,           // (boolean) 会话即将到期时,续订会话
+    key: 'koa:sess', // cookie key (默认koa：sess)
+    maxAge: 86400000, // cookie的过期时间,毫秒，默认为1天
+    overwrite: true, // 是否覆盖    (默认default true)
+    httpOnly: false, // cookie是否只有服务器端可以访问,默认为true
+    signed: true, // 签名默认true
+    rolling: false, // 在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+    renew: false, // (boolean) 会话即将到期时,续订会话
 }
 app.use(session(CONFIG, app))
 router.get('/', async ctx => {

@@ -15,7 +15,9 @@ router.post('/register', async ctx => {
     })
     if (findResult.length > 0) {
         ctx.status = 500
-        ctx.body = { err: '手机号已存在' }
+        ctx.body = {
+            err: '手机号已存在'
+        }
     } else {
         const regUser = new User({
             phone: ctx.request.body.phone,
@@ -72,8 +74,12 @@ router.post('/login', async ctx => {
  * @access 公开
  */
 router.post('/getUserInfo', async ctx => {
-    let findUserResult = await User.find({ uid: ctx.request.body.uid })
-    let findListResult = await List.find({ uid: ctx.request.body.uid })
+    let findUserResult = await User.find({
+        uid: ctx.request.body.uid
+    })
+    let findListResult = await List.find({
+        uid: ctx.request.body.uid
+    })
     ctx.body = {
         user: findUserResult[0],
         list: findListResult
@@ -91,7 +97,11 @@ router.post('/cancel', async ctx => {
     })
     const cancelEnable = findResult[0].enable
     if (findResult[0].phone && cancelEnable === 'Y') {
-        await User.update({ phone: ctx.request.body.phone }, { enable: 'N' })
+        await User.update({
+            phone: ctx.request.body.phone
+        }, {
+            enable: 'N'
+        })
         ctx.status = 200
         ctx.body = {
             success: '注销成功'
@@ -116,7 +126,11 @@ router.post('/restore', async ctx => {
     const phone = findResult[0].phone
     const cancelEnable = findResult[0].enable
     if (phone && cancelEnable === 'N') {
-        await User.update({ phone: ctx.request.body.phone }, { enable: 'Y' })
+        await User.update({
+            phone: ctx.request.body.phone
+        }, {
+            enable: 'Y'
+        })
         ctx.status = 200
         ctx.body = {
             success: '用户账户恢复成功'

@@ -101,13 +101,19 @@ router.post('/deleteList', async ctx => {
     const cancelEnable = findResult[0].enable
     if (name) {
         if (cancelEnable === 'N') {
-            await List.delete({ name: ctx.request.body.name })
+            await List.delete({
+                name: ctx.request.body.name
+            })
             ctx.status = 200
             ctx.body = {
                 success: `名称为：${name} 的数据删除成功！`
             }
         } else {
-            await List.update({ name: ctx.request.body.name }, { enable: 'Y' })
+            await List.update({
+                name: ctx.request.body.name
+            }, {
+                enable: 'Y'
+            })
             ctx.status = 200
             ctx.body = {
                 success: `名称为：${ctx.request.body.name} 的数据删除成功！更新为${findResult[0].enable}。`
@@ -132,13 +138,21 @@ router.post('/updateStatus', async ctx => {
     })
     const cancelEnable = findResult[0].enable
     if (cancelEnable === 'Y') {
-        await List.update({ name: ctx.request.body.name }, { enable: 'N' })
+        await List.update({
+            name: ctx.request.body.name
+        }, {
+            enable: 'N'
+        })
         ctx.status = 200
         ctx.body = {
             success: `当前状态为：${findResult[0].enable}`
         }
     } else {
-        await List.update({ name: ctx.request.body.name }, { enable: 'Y' })
+        await List.update({
+            name: ctx.request.body.name
+        }, {
+            enable: 'Y'
+        })
         ctx.status = 200
         ctx.body = {
             success: `当前状态为：${findResult[0].enable}`
