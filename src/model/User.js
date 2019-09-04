@@ -28,6 +28,9 @@ const userSchema = new Schema({
     login_count: {
         type: Number
     },
+    token: {
+        type: String
+    },
     enable: {
         type: String,
         default: 'Y'

@@ -1,7 +1,11 @@
 const Router = require('koa-router')
 const User = require('../../model/User')
 const List = require('../../model/List')
-const tools = require('../../../utils/tools')
+const {
+    Payload
+} = require('../../../utils/payload')
+const token = require('../../../utils/token')
+// const tools = require('../../../utils/tools')
 const router = new Router()
 
 /**
@@ -43,6 +47,7 @@ router.post('/login', async ctx => {
         phone: ctx.request.body.phone
     })
     const cancelEnable = findResult[0].enable
+    const payload = new Payload(findResult[0].uid, ctx.request.body.phone, ctx.request.body.password)
     if (findResult.length === 0) {
         ctx.status = 500
         ctx.body = {
@@ -50,15 +55,25 @@ router.post('/login', async ctx => {
         }
     } else {
         if (cancelEnable === 'Y') {
-            ctx.session.uid = findResult[0].uid
-            ctx.session.phone = ctx.request.body.phone
-            ctx.session.password = ctx.request.body.password
             ctx.status = 200
-            ctx.body = {
-                session: ctx.session,
-                success: '登陆成功'
-            }
-
+            findResult[0].token = token(payload)
+            await User(findResult[0]).save().then((err, docs) => {
+                if (err) {
+                    console.log(err)
+                    console.log(';;;;;;', docs)
+                    // ctx.body = {
+                    //     code: 1,
+                    //     msg: '登录失败'
+                    // }
+                    
+                    // return
+                } else {
+                    ctx.body = {
+                        code: 0,
+                        msg: '登陆成功'
+                    }
+                }
+            })
         } else {
             ctx.status = 500
             ctx.body = {
@@ -102,6 +117,7 @@ router.post('/cancel', async ctx => {
         }, {
             enable: 'N'
         })
+        console.log(ctx.session.phone)
         ctx.status = 200
         ctx.body = {
             success: '注销成功'

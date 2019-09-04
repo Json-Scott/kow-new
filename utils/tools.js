@@ -2,7 +2,7 @@ module.exports = {
     // 用户uid
     uid: () => {
         let s = []
-        let hexDigits = "0123456789abcdef";
+        let hexDigits = "0123456789";
         for (let i = 0; i < 36; i++) {
             s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
         }

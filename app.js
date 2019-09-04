@@ -1,6 +1,5 @@
 const Koa = require('koa')
 const Router = require('koa-router')
-const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
 const cors = require('koa2-cors')
 const favicon = require('koa-favicon')
@@ -36,18 +35,6 @@ app.use(cors({
     allowMethods: ['GET', 'POST'],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
-// 使用session
-app.keys = ['secret']
-const CONFIG = {
-    key: 'koa:sess', // cookie key (默认koa：sess)
-    maxAge: 86400000, // cookie的过期时间,毫秒，默认为1天
-    overwrite: true, // 是否覆盖    (默认default true)
-    httpOnly: false, // cookie是否只有服务器端可以访问,默认为true
-    signed: true, // 签名默认true
-    rolling: false, // 在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
-    renew: false, // (boolean) 会话即将到期时,续订会话
-}
-app.use(session(CONFIG, app))
 router.get('/', async ctx => {
     ctx.body = `位于端口: ${PORT} 的服务启动成功!\n\n数据库 ${CONF.DATABASE} 连接成功!`
 })

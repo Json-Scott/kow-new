@@ -3,10 +3,6 @@ const Schema = mongoose.Schema
 const TABLE = 'lists'
 
 const listSchema = new Schema({
-    // uid: {
-    //     type: String,
-    //     ref: 'User'
-    // },
     cid: {
         type: Schema.Types.ObjectId,
         ref: 'User'

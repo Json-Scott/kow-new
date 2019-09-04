@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const CONF = {
     URL: 'localhost',
     PORT: 27017,
-    DATABASE: 'mongo-test'
+    DATABASE: 'mongo-test-new'
 }
 // 服务器端口号
 const PORT = 8888
