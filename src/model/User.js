@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
-const uid = require('../../utils/uid')
+const tools = require('../../utils/tools')
 const Schema = mongoose.Schema
 const TABLE = 'users'
 const userSchema = new Schema({
     uid: {
         type: String,
         unique: true,
-        default: uid
+        default: tools.uid
     },
     phone: {
         type: String,

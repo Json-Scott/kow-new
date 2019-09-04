@@ -28,7 +28,7 @@ app.use(cors({
         if (ctx.url.indexOf('/api') > -1) {
             return "*" // 允许来自所有域名请求
         }
-        return 'http://localhost:8080/'
+        return 'm.scott.com:8888'
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,
